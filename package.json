@@ -1,0 +1,50 @@
+{
+  "name": "rn-boilerplate",
+  "version": "0.1.0",
+  "private": true,
+  "devDependencies": {
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
+    "enzyme-to-json": "^3.3.1",
+    "jest-expo": "23.0.0",
+    "jest-serializer-enzyme": "^1.0.0",
+    "react-addons-test-utils": "^15.6.2",
+    "react-dom": "^16.2.0",
+    "react-native-scripts": "1.8.1",
+    "react-test-renderer": "16.0.0"
+  },
+  "main": "./node_modules/react-native-scripts/build/bin/crna-entry.js",
+  "scripts": {
+    "start": "react-native-scripts start",
+    "eject": "react-native-scripts eject",
+    "android": "react-native-scripts android",
+    "ios": "react-native-scripts ios",
+    "test": "node node_modules/jest/bin/jest.js --watch",
+    "flow": "flow"
+  },
+  "jest": {
+    "preset": "jest-expo",
+    "setupFiles": [
+      "./test/testSetup.js"
+    ],
+    "snapshotSerializers": [
+      "./node_modules/enzyme-to-json/serializer"
+    ]
+  },
+  "dependencies": {
+    "expo": "^23.0.4",
+    "flow-bin": "0.56.0",
+    "global": "^4.3.2",
+    "moment": "^2.20.1",
+    "prop-types": "^15.6.0",
+    "react": "16.0.0",
+    "react-native": "0.50.3",
+    "react-navigation": "^1.0.0-beta.29"
+  },
+  "standard": {
+    "parser": "babel-eslint",
+    "plugins": [
+      "flowtype"
+    ]
+  }
+}
