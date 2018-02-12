@@ -3,15 +3,20 @@
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
+    "babel-eslint": "7.2.1",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
     "enzyme-to-json": "^3.3.1",
+    "eslint": "^4.17.0",
+    "eslint-plugin-flowtype": "^2.43.0",
+    "eslint-plugin-react": "^7.6.1",
     "jest-expo": "23.0.0",
     "jest-serializer-enzyme": "^1.0.0",
     "react-addons-test-utils": "^15.6.2",
     "react-dom": "^16.2.0",
     "react-native-scripts": "1.8.1",
-    "react-test-renderer": "16.0.0"
+    "react-test-renderer": "16.0.0",
+    "standard": "^10.0.3"
   },
   "main": "./node_modules/react-native-scripts/build/bin/crna-entry.js",
   "scripts": {
@@ -32,6 +37,7 @@
     ]
   },
   "dependencies": {
+    "@types/react-navigation": "^1.0.32",
     "expo": "^23.0.4",
     "flow-bin": "0.56.0",
     "global": "^4.3.2",
@@ -43,6 +49,17 @@
   },
   "standard": {
     "parser": "babel-eslint",
+    "globals": [
+      "afterAll",
+      "afterEach",
+      "beforeAll",
+      "beforeEach",
+      "it",
+      "test",
+      "describe",
+      "expect",
+      "jest"
+    ],
     "plugins": [
       "flowtype"
     ]
