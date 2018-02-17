@@ -19,13 +19,13 @@ describe('MoviePopup', () => {
     expect(rendered).toMatchSnapshot()
   })
 
-  it('executed onClose with correct arguments', () => {
+  it('executed onClose', () => {
     const onCloseMock = jest.fn()
 
     const rendered = shallow(<MoviePopup movie={movie} isOpen onClose={onCloseMock} />)
 
-    rendered.simulate('press')
+    rendered.find('TouchableWithoutFeedback').simulate('press')
 
-    expect(onCloseMock).toHaveBeenCalledWith(movie)
+    expect(onCloseMock).toHaveBeenCalled()
   })
 })

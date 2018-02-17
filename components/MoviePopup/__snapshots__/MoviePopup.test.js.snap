@@ -1,0 +1,76 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MoviePopup matches current snapshot 1`] = `
+<View>
+  <TouchableWithoutFeedback
+    onPress={[Function]}
+  >
+    <AnimatedComponent />
+  </TouchableWithoutFeedback>
+  <AnimatedComponent>
+    <View>
+      <View>
+        <View>
+          <Image />
+        </View>
+        <View>
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+          />
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+          />
+        </View>
+      </View>
+      <View>
+        <Text
+          accessible={true}
+          allowFontScaling={true}
+          ellipsizeMode="tail"
+        >
+          Day
+        </Text>
+        <Text
+          accessible={true}
+          allowFontScaling={true}
+          ellipsizeMode="tail"
+        >
+          Add day options here
+        </Text>
+        <Text
+          accessible={true}
+          allowFontScaling={true}
+          ellipsizeMode="tail"
+        >
+          Showtime
+        </Text>
+        <Text
+          accessible={true}
+          allowFontScaling={true}
+          ellipsizeMode="tail"
+        >
+          Add show time options here
+        </Text>
+      </View>
+    </View>
+    <View>
+      <TouchableHighlight
+        activeOpacity={0.85}
+        underlayColor="#9575CD"
+      >
+        <Text
+          accessible={true}
+          allowFontScaling={true}
+          ellipsizeMode="tail"
+        >
+          Book My Tickets
+        </Text>
+      </TouchableHighlight>
+    </View>
+  </AnimatedComponent>
+</View>
+`;
