@@ -9,7 +9,7 @@ exports[`MoviePoster matches current snapshot 1`] = `
     <Image
       source={
         Object {
-          "uri": undefined,
+          "uri": "http://movie-posters.com/blade-runner.jpg",
         }
       }
     />
@@ -19,12 +19,16 @@ exports[`MoviePoster matches current snapshot 1`] = `
     allowFontScaling={true}
     ellipsizeMode="tail"
     numberOfLines={1}
-  />
+  >
+    Blade Runner
+  </Text>
   <Text
     accessible={true}
     allowFontScaling={true}
     ellipsizeMode="tail"
     numberOfLines={1}
-  />
+  >
+    sci-fi
+  </Text>
 </TouchableOpacity>
 `;
