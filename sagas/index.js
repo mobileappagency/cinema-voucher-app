@@ -5,7 +5,7 @@ import * as actionTypes from '../actions/actionTypes'
 import type { TvShowAction } from '../actions/actionTypes'
 import * as theMovieDBService from '../services/theMovieDB'
 
-function * fetchAllTvShows (action: TvShowAction): Generator<Effect, void, any> {
+export function * fetchAllTvShows (action: TvShowAction): Generator<Effect, void, any> {
   try {
     const theMovieDBResult = yield call(theMovieDBService.fetchMostPopular)
     // call Netflix
@@ -17,7 +17,7 @@ function * fetchAllTvShows (action: TvShowAction): Generator<Effect, void, any> 
   }
 }
 
-function * watchTvShows (): Generator<ForkEffect<*, *, *>, void, any> {
+export function * watchTvShows (): Generator<ForkEffect<*, *, *>, void, any> {
   yield takeEvery(actionTypes.TV_SHOWS_FETCH_ALL, fetchAllTvShows)
 }
 
