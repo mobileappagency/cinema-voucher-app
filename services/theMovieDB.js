@@ -23,4 +23,4 @@ export const fetchMostPopular = async (): Promise<TvShowsResults> => {
   return popularTvShows
 }
 
-export type { TvShowsResult }
+export type { TvShowsResult, TvShowsResults }

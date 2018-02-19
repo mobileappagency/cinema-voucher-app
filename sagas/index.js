@@ -8,6 +8,9 @@ import * as theMovieDBService from '../services/theMovieDB'
 function * fetchAllTvShows (action: TvShowAction): Generator<Effect, void, any> {
   try {
     const theMovieDBResult = yield call(theMovieDBService.fetchMostPopular)
+    // call Netflix
+    // call Rotten Tomaties
+    // call Track.tv
     yield put({ type: actionTypes.TV_SHOWS_RESULTS, payload: { theMovieDBResult } })
   } catch (e) {
     yield put({ type: actionTypes.TV_SHOWS_FETCH_FAILURE })

@@ -1,6 +1,8 @@
 // @flow
+import type { TvShowsResults } from '../services/theMovieDB'
+
 type ReduxState = {
-  tvShows: ?Object
+  tvShows: ?TvShowsResults
 }
 
 const initialState: ReduxState = {
