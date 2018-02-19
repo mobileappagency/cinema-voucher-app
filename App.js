@@ -1,29 +1,28 @@
 // @flow
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
+import { Provider } from 'react-redux'
 import { StackNavigator } from 'react-navigation'
 
 import Movies from './components/Movies'
+import configureStore from './store/configureStore'
+import rootSaga from './sagas'
 
-type State = {
-  text: string
-}
+type State = {}
 
 type Props = {}
 
-class App extends React.Component<Props, State> {
-  constructor (props: Object) {
-    super(props)
-    this.state = {
-      text: 'Hello World!'
-    }
-  }
+const store = configureStore()
+store.runSaga(rootSaga)
 
+class App extends React.Component<Props, State> {
   render () {
     return (
-      <View style={styles.container}>
-        <Movies />
-      </View>
+      <Provider store={store}>
+        <View style={styles.container}>
+          <Movies />
+        </View>
+      </Provider>
     )
   }
 }
