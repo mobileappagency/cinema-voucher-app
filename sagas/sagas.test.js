@@ -32,7 +32,7 @@ describe('sagas', () => {
       expect(iterable.next().done).toEqual(true)
     })
 
-    it.ski('puts a failure action with proper payload', () => {
+    it.skip('puts a failure action with proper payload', () => {
       const iterable = fetchAllTvShows()
 
       expect(iterable.next().value).toEqual(call(theMovieDBService.fetchMostPopular))
