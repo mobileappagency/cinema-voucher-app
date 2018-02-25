@@ -3,10 +3,10 @@ import * as actionTypes from '../actions/actionTypes'
 import type { TvShowActionType } from '../actions/actionTypes'
 import type { TvShowsResults, TvShowsGenreResults } from '../services/theMovieDB'
 
-type TvShowsStore = {|
+type TvShowsStore = {
   ...$Exact<TvShowsResults>,
   ...$Exact<TvShowsGenreResults>
-|}
+}
 
 const initialState: TvShowsStore = {
   genres: [],
@@ -16,11 +16,11 @@ const initialState: TvShowsStore = {
 type TvShowsPayload = TvShowsResults | TvShowsGenreResults
 
 type TvShowsAction = {
-  type: ?TvShowActionType,
+  type: TvShowActionType,
   payload: TvShowsPayload
 }
 
-const tvShowsReducer = (state: ?TvShowsStore = initialState, action: TvShowsAction): ?TvShowsResults => {
+const tvShowsReducer = (state: TvShowsStore = initialState, action: TvShowsAction): TvShowsStore => {
   switch (action.type) {
     case actionTypes.TV_SHOWS_RESULTS:
       return {
@@ -33,7 +33,7 @@ const tvShowsReducer = (state: ?TvShowsStore = initialState, action: TvShowsActi
         ...action.payload
       }
     default:
-      return initialState
+      return state
   }
 }
 

@@ -14,7 +14,7 @@ describe('tvShowsReducer', () => {
     vote_count: 50000
   }
   let action: TvShowsAction = { type: null, payload: { results: [] } }
-  let initialState: ?TvShowsStore = {
+  let initialState: TvShowsStore = {
     genres: [],
     results: []
   }
