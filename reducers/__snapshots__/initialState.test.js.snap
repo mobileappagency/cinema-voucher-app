@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`initialState matches current snapshot 1`] = `
+Object {
+  "tvShows": Object {
+    "genres": Array [],
+    "results": Array [],
+  },
+}
+`;
