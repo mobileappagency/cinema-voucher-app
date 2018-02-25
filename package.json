@@ -41,7 +41,7 @@
   "dependencies": {
     "@types/react-navigation": "^1.0.32",
     "expo": "^23.0.4",
-    "flow-bin": "0.56.0",
+    "flow-bin": "^0.66.0",
     "global": "^4.3.2",
     "isomorphic-fetch": "^2.2.1",
     "keymirror": "^0.1.1",

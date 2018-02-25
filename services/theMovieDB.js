@@ -29,7 +29,7 @@ export const fetchMostPopular = async (): Promise<TvShowsResults> => {
 
 export const fetchAllGenres = async (): Promise<TvShowsGenreResults> => {
   const allTvShowGenres: TvShowsGenreResults = await fetchService.getRequest(
-    `${TMDB_API_ENDPOINT}genre/tv?api_key=${TMDB_API_KEY}&language=en-US`
+    `${TMDB_API_ENDPOINT}genre/tv/list?api_key=${TMDB_API_KEY}&language=en-US`
   )
 
   return allTvShowGenres

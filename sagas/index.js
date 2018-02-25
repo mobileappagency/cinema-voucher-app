@@ -20,8 +20,12 @@ export function * fetchAllTvShows (action: TvShowAction): Generator<Effect, void
 }
 
 export function * fetchAllTvGenres (): Generator<Effect, void, any> {
-  const allTvgenres: TvShowsGenreResults = yield call(theMovieDBService.fetchAllGenres)
-  yield put({ type: actionTypes.TV_SHOWS_FETCH_GENRES, payload: allTvgenres })
+  try {
+    const allTvgenres: TvShowsGenreResults = yield call(theMovieDBService.fetchAllGenres)
+    yield put({ type: actionTypes.TV_SHOWS_FETCH_GENRES, payload: allTvgenres })
+  } catch (e) {
+    yield put({ type: actionTypes.TV_SHOWS_FETCH_FAILURE })
+  }
 }
 
 export function * watchTvShows (): Generator<ForkEffect<*, *, *>, void, any> {
