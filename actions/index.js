@@ -8,6 +8,6 @@ export const fetchAllTvShows = () => {
 
 export const fetchAllTvShowGenres = () => {
   return {
-    type: actionTypes.TV_SHOWS_FETCH_ALL_GENRES
+    type: actionTypes.TV_SHOWS_FETCH_GENRES
   }
 }

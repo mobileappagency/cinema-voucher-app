@@ -42,7 +42,7 @@ describe('sagas', () => {
 
       expect(iterable.next().value).toEqual(call(theMovieDBService.fetchAllGenres))
       expect(iterable.next({ genres: [] }).value).toEqual(put({
-        type: actionTypes.TV_SHOWS_GENRES,
+        type: actionTypes.TV_SHOWS_FETCH_GENRES,
         payload: tvShowsResults
       }))
       expect(iterable.next().done).toEqual(true)
