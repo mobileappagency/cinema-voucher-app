@@ -11,12 +11,17 @@ type TvShowsResult = {
   vote_count: number
 }
 
+type TvGenreResult = {
+  id: number,
+  name: string
+}
+
 type TvShowsResults = {
   results: Array<TvShowsResult>,
 }
 
 type TvShowsGenreResults = {
-  genres: Array<string>
+  genres: Array<TvGenreResult>
 }
 
 export const fetchMostPopular = async (): Promise<TvShowsResults> => {
