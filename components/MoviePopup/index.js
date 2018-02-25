@@ -9,11 +9,11 @@ import {
   Text,
   TouchableHighlight
 } from 'react-native'
-import type { MovieModel } from '../../data/movies'
+import type { TvShowsResult } from '../../services/theMovieDB'
 import { defaultStyles } from '../../styles'
 
 type Props = {
-  movie: ?MovieModel,
+  movie: ?TvShowsResult,
   isOpen: boolean,
   onClose: Function
 }
@@ -90,7 +90,7 @@ export default class MoviePopup extends Component<Props, State> {
 
   render () {
     const { movie } = this.props
-    const { title, genre, poster } = movie || {}
+    const { name, poster_path } = movie || {}
 
     if (!this.state.visible) return null
 
@@ -103,11 +103,11 @@ export default class MoviePopup extends Component<Props, State> {
           <View style={styles.content}>
             <View style={[styles.movieContainer, this.getStyles().movieContainer]}>
               <View style={[styles.imageContainer, this.getStyles().imageContainer]}>
-                <Image source={{ uri: poster }} style={styles.image} />
+                <Image source={{ uri: poster_path }} style={styles.image} />
               </View>
               <View style={[styles.movieInfo, this.getStyles().movieInfo]}>
-                <Text style={[styles.title, this.getStyles().title]}>{title}</Text>
-                <Text style={styles.genre}>{genre}</Text>
+                <Text style={[styles.title, this.getStyles().title]}>{name}</Text>
+                {/* <Text style={styles.genre}>{genre}</Text> */}
               </View>
             </View>
             <View>
