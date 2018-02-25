@@ -2,18 +2,19 @@
 import React from 'react'
 import MoviePoster from './'
 import { shallow } from 'enzyme'
-import type { MovieModel } from '../../data/movies'
+import type { TvShowsResult } from '../../services/theMovieDB'
 
 describe('MoviePoster', () => {
-  let movie: MovieModel
+  let movie: ?TvShowsResult
 
   beforeEach(() => {
     movie = {
-      title: 'Blade Runner',
-      genre: 'sci-fi',
-      poster: 'http://movie-posters.com/blade-runner.jpg',
-      days: [],
-      times: []
+      name: 'Blade Runner',
+      poster_path: 'blade-runner.jpg',
+      vote_average: 4.5,
+      original_language: 'en-US',
+      overview: '... text ...',
+      vote_count: 10000
     }
   })
 

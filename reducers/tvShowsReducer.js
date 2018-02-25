@@ -1,22 +1,41 @@
 // @flow
 import * as actionTypes from '../actions/actionTypes'
-import type { TvShowAction } from '../actions/actionTypes'
-import type { TvShowsResult } from '../services/theMovieDB'
+import type { TvShowActionType } from '../actions/actionTypes'
+import type { TvShowsResults, TvShowsGenreResults } from '../services/theMovieDB'
 
-const initialState: ?TvShowsResult = null
+type TvShowsStore = {|
+  ...$Exact<TvShowsResults>,
+  ...$Exact<TvShowsGenreResults>
+|}
 
-type TvShowsResultAction = {
-  type: TvShowAction,
-  payload: TvShowsResult
+const initialState: TvShowsStore = {
+  genres: [],
+  results: []
 }
 
-const tvShowsReducer = (state: ?TvShowsResult = initialState, action: TvShowsResultAction): ?TvShowsResult => {
+type TvShowsPayload = TvShowsResults | TvShowsGenreResults
+
+type TvShowsAction = {
+  type: ?TvShowActionType,
+  payload: TvShowsPayload
+}
+
+const tvShowsReducer = (state: ?TvShowsStore = initialState, action: TvShowsAction): ?TvShowsResults => {
   switch (action.type) {
     case actionTypes.TV_SHOWS_RESULTS:
-      return action.payload
+      return {
+        ...state,
+        ...action.payload
+      }
+    case actionTypes.TV_SHOWS_GENRES:
+      return {
+        ...state,
+        ...action.payload
+      }
     default:
       return initialState
   }
 }
 
 export default tvShowsReducer
+export type { TvShowsAction, TvShowsStore, TvShowsPayload }

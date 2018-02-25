@@ -4,12 +4,40 @@ exports[`MoviePoster matches current snapshot 1`] = `
 <TouchableOpacity
   activeOpacity={0.2}
   onPress={[Function]}
+  style={
+    Array [
+      Object {
+        "marginBottom": 5,
+        "marginLeft": 7.5,
+      },
+      Object {
+        "height": 365,
+        "width": 240,
+      },
+    ]
+  }
 >
-  <View>
+  <View
+    style={
+      Object {
+        "flex": 1,
+      }
+    }
+  >
     <Image
       source={
         Object {
-          "uri": "http://movie-posters.com/blade-runner.jpg",
+          "uri": "https://image.tmdb.org/t/p/w500/blade-runner.jpg",
+        }
+      }
+      style={
+        Object {
+          "borderRadius": 5,
+          "bottom": 0,
+          "left": 0,
+          "position": "absolute",
+          "right": 0,
+          "top": 0,
         }
       }
     />
@@ -19,6 +47,13 @@ exports[`MoviePoster matches current snapshot 1`] = `
     allowFontScaling={true}
     ellipsizeMode="tail"
     numberOfLines={1}
+    style={
+      Object {
+        "fontFamily": "Avenir",
+        "fontSize": 14,
+        "marginTop": 4,
+      }
+    }
   >
     Blade Runner
   </Text>
@@ -27,8 +62,16 @@ exports[`MoviePoster matches current snapshot 1`] = `
     allowFontScaling={true}
     ellipsizeMode="tail"
     numberOfLines={1}
+    style={
+      Object {
+        "color": "#BBBBBB",
+        "fontFamily": "Avenir",
+        "fontSize": 12,
+        "lineHeight": 14,
+      }
+    }
   >
-    sci-fi
+    4.5
   </Text>
 </TouchableOpacity>
 `;

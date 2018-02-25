@@ -3,7 +3,7 @@ import { TMDB_API_KEY, TMDB_API_ENDPOINT } from 'react-native-dotenv'
 import * as fetchService from './fetch'
 
 type TvShowsResult = {
-  title: string,
+  name: string,
   poster_path: string,
   original_language: string,
   overview: string,
@@ -12,7 +12,11 @@ type TvShowsResult = {
 }
 
 type TvShowsResults = {
-  results: Array<TvShowsResult>
+  results: Array<TvShowsResult>,
+}
+
+type TvShowsGenreResults = {
+  genres: Array<string>
 }
 
 export const fetchMostPopular = async (): Promise<TvShowsResults> => {
@@ -23,4 +27,12 @@ export const fetchMostPopular = async (): Promise<TvShowsResults> => {
   return popularTvShows
 }
 
-export type { TvShowsResult, TvShowsResults }
+export const fetchAllGenres = async (): Promise<TvShowsGenreResults> => {
+  const allTvShowGenres: TvShowsGenreResults = await fetchService.getRequest(
+    `${TMDB_API_ENDPOINT}genre/tv?api_key=${TMDB_API_KEY}&language=en-US`
+  )
+
+  return allTvShowGenres
+}
+
+export type { TvShowsResult, TvShowsGenreResults, TvShowsResults }

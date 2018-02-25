@@ -8,19 +8,20 @@ import {
 } from 'react-native'
 import type { ReduxState } from '../../reducers/initialState'
 import type { MovieModel } from '../../data/movies'
-import movies from '../../data/movies'
+import type { TvShowsResults, TvShowsResult } from '../../services/theMovieDB'
 import { fetchAllTvShows } from '../../actions'
 import MoviePoster from '../MoviePoster'
 import MoviePopup from '../MoviePopup'
 
 type State = {
   popupIsOpen: boolean,
-  movie: ?MovieModel
+  movie: ?TvShowsResult
 }
 
 type Props = {
   movies: MovieModel[],
-  fetchAllTvShows: Function
+  fetchAllTvShows: Function,
+  tvShows: ?TvShowsResults
 }
 
 class Movies extends Component<Props, State> {
@@ -29,15 +30,11 @@ class Movies extends Component<Props, State> {
     movie: null
   }
 
-  static defaultProps = {
-    movies: []
-  }
-
   componentWillMount () {
     this.props.fetchAllTvShows()
   }
 
-  openMovie = (movie: MovieModel) => {
+  openMovie = (movie: TvShowsResult) => {
     this.setState({
       popupIsOpen: true,
       movie
@@ -51,10 +48,12 @@ class Movies extends Component<Props, State> {
   }
 
   render () {
+    const { tvShows } = this.props
+
     return (
       <View style={styles.container}>
         <ScrollView contentContainerStyle={styles.scrollContent}>
-          {movies.map((movie, index) =>
+          {tvShows.results.map((movie, index) =>
             <MoviePoster movie={movie} key={index} onOpen={() => this.openMovie(movie)} />)}
         </ScrollView>
         <MoviePopup
