@@ -5,7 +5,7 @@ import { shallow } from 'enzyme'
 import type { TvShowsResult } from '../../services/theMovieDB'
 
 describe('MoviePoster', () => {
-  let movie: ?TvShowsResult
+  let movie: TvShowsResult
 
   beforeEach(() => {
     movie = {
@@ -17,7 +17,7 @@ describe('MoviePoster', () => {
       vote_count: 10000
     }
   })
-
+  
   it('matches current snapshot', () => {
     const rendered = shallow(<MoviePoster movie={movie} onOpen={jest.fn()} />)
 

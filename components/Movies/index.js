@@ -21,7 +21,7 @@ type State = {
 type Props = {
   movies: MovieModel[],
   fetchAllTvShows: Function,
-  tvShows: ?TvShowsResults
+  tvShows: TvShowsResults
 }
 
 class Movies extends Component<Props, State> {
