@@ -34,20 +34,17 @@ describe('tvShowsReducer', () => {
   })
 
   it('should handle TV_SHOWS_GENRES', () => {
+    const payload = { genres: [
+      { id: 1, name: 'Action' },
+      { id: 2, name: 'Thriller' }
+    ]}
     action = {
       type: actionTypes.TV_SHOWS_GENRES,
-      payload: { genres: [
-        { id: 1, name: 'Action' },
-        { id: 2, name: 'Thriller' }
-      ]}
+      payload
     }
 
     expect(tvShowsReducer(initialState, action)).toEqual({
-      genres: [
-        { id: 1, name: 'Action' },
-        { id: 2, name: 'Thriller' }
-      ],
-      results: []
+      ...initialState, ...payload
     })
   })
 })
