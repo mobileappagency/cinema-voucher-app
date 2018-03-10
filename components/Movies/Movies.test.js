@@ -13,6 +13,7 @@ describe('Movies', () => {
 
   beforeEach(() => {
     initialState.tvShows.results.push({
+      genre_ids: [],
       name: 'Blade Runner',
       poster_path: 'blade-runner.jpg',
       vote_average: 4.5,

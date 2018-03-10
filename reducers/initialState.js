@@ -1,13 +1,9 @@
 // @flow
-import type { TvShowsStore } from './tvShowsReducer'
-
-type ReduxState = {
-  tvShows: TvShowsStore
-}
+import type { ReduxState } from 'types'
 
 const initialState: ReduxState = {
-  tvShows: { genres: [], results: [] }
+  tvShows: { genres: [], results: [] },
+  popup: { isOpen: false, tvShow: null }
 }
 
 export default initialState
-export type { ReduxState }

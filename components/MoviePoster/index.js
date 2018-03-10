@@ -8,7 +8,7 @@ import {
   StyleSheet,
   View
 } from 'react-native'
-import type { TvShowsResult } from '../../services/theMovieDB'
+import type { TvShowsResult } from 'types'
 import { defaultStyles } from '../../styles'
 
 type Props = {

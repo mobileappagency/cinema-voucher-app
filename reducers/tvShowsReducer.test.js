@@ -1,11 +1,11 @@
 // @flow
 import * as actionTypes from '../actions/actionTypes'
 import tvShowsReducer from './tvShowsReducer'
-import type { TvShowsAction, TvShowsStore, TvShowsPayload } from './tvShowsReducer'
-import type { TvShowsResult } from '../services/theMovieDB'
+import type { TvShowsAction, TvShowsStore, TvShowsResult, TvShowsResults } from 'types'
 
 describe('tvShowsReducer', () => {
   let tvShowsResult: TvShowsResult = {
+    genre_ids: [],
     name: 'Dunkirk',
     poster_path: 'dunkirk.jpg',
     original_language: 'en-GB',
@@ -24,7 +24,7 @@ describe('tvShowsReducer', () => {
   })
 
   it('should handle TV_SHOWS_RESULTS', () => {
-    let payload: TvShowsPayload = { results: [ tvShowsResult ] }
+    let payload: TvShowsResults = { results: [ tvShowsResult ] }
     action.type = actionTypes.TV_SHOWS_RESULTS
     action.payload = payload
 

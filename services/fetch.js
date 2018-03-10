@@ -1,18 +1,17 @@
 // @flow
 
-type FetchResult = {
+type FetchResult<T> = {
   ok: boolean,
-  json: () => Object,
+  json: () => T,
   statusText: string
 }
-
-export const getRequest = async (urlString: string): Promise<Object> => {
-  const result: FetchResult = await fetch(urlString)
+export const getRequest = async function getRequest<T> (urlString: string): Promise<T> {
+  const result: FetchResult<T> = await fetch(urlString)
 
   if (!result.ok) {
     throw new Error(result.statusText)
   }
 
-  const json: Object = await result.json()
+  const json: T = await result.json()
   return json
 }

@@ -1,7 +1,9 @@
 // @flow
 import { combineReducers } from 'redux'
-import tvShows from './tvShowsReducer'
+import tvShowsReducer from './tvShowsReducer'
+import popupReducer from './popupReducer'
 
 export default combineReducers({
-  tvShows
+  tvShows: tvShowsReducer,
+  popup: popupReducer
 })

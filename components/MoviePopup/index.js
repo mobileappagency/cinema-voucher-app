@@ -1,5 +1,6 @@
 // @flow
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import {
   Animated,
   Dimensions,
@@ -9,14 +10,18 @@ import {
   Text,
   TouchableHighlight
 } from 'react-native'
-import type { TvShowsResult } from '../../services/theMovieDB'
+import type { TvShowsResult, TvGenreResult } from 'types'
 import { defaultStyles } from '../../styles'
+
+type ReduxMappedProps = {
+  genres: Array<TvGenreResult>
+}
 
 type Props = {
   movie: ?TvShowsResult,
   isOpen: boolean,
   onClose: Function
-}
+} & ReduxMappedProps
 
 type State = {
   position: Animated.Value,
@@ -27,7 +32,7 @@ type State = {
 
 const { width, height } = Dimensions.get('window')
 
-export default class MoviePopup extends Component<Props, State> {
+class MoviePopup extends Component<Props, State> {
   state = {
     position: new Animated.Value(this.props.isOpen ? 0 : height),
     height,
@@ -43,7 +48,7 @@ export default class MoviePopup extends Component<Props, State> {
     }
   }
 
-  animateOpen () {
+  animateOpen = () => {
     this.setState({ visible: true }, () => {
       Animated.timing(
         this.state.position, { toValue: 0 }
@@ -51,46 +56,58 @@ export default class MoviePopup extends Component<Props, State> {
     })
   }
 
-  animateClose () {
+  animateClose = () => {
     Animated.timing(
       this.state.position, { toValue: height }
-    ).start(() => this.setState({
-      height,
-      expanded: false,
-      visible: false
-    }))
+    ).start(() => {
+      this.setState({
+        height,
+        expanded: false,
+        visible: false
+      })
+      this.props.onClose()
+    })
   }
 
-  getStyles = () => {
-    return {
-      imageContainer: this.state.expanded ? {
-        width: width / 2
-      } : {
-        marginRight: 10
-      },
-      movieContainer: this.state.expanded ? {
-        flexDirection: 'column',
-        alignItems: 'center'
-      } : {
-        flexDirection: 'row'
-      },
-      movieInfo: this.state.expanded ? {
-        flex: 0,
-        alignItems: 'center',
-        paddingTop: 0
-      } : {
-        flex: 1,
-        justifyContent: 'center'
-      },
-      title: this.state.expanded ? {
-        textAlign: 'center'
-      } : {}
-    }
+  getGenreTag = (acc: Array<string>, genreId: number): Array<string> => {
+    const { genres } = this.props
+    const genre: ?TvGenreResult = genres.find(({id}) => {
+      return id === genreId
+    })
+
+    if (genre) acc.push(genre.name)
+
+    return acc
   }
+
+  getStyles = (): Object => ({
+    imageContainer: this.state.expanded ? {
+      width: width / 2
+    } : {
+      marginRight: 10
+    },
+    movieContainer: this.state.expanded ? {
+      flexDirection: 'column',
+      alignItems: 'center'
+    } : {
+      flexDirection: 'row'
+    },
+    movieInfo: this.state.expanded ? {
+      flex: 0,
+      alignItems: 'center',
+      paddingTop: 0
+    } : {
+      flex: 1,
+      justifyContent: 'center'
+    },
+    title: this.state.expanded ? {
+      textAlign: 'center'
+    } : {}
+  })
 
   render () {
     const { movie } = this.props
-    const { name, poster_path } = movie || {}
+    const { genre_ids, name, poster_path } = movie || {}
 
     if (!this.state.visible) return null
 
@@ -103,24 +120,24 @@ export default class MoviePopup extends Component<Props, State> {
           <View style={styles.content}>
             <View style={[styles.movieContainer, this.getStyles().movieContainer]}>
               <View style={[styles.imageContainer, this.getStyles().imageContainer]}>
-                <Image source={{ uri: poster_path }} style={styles.image} />
+                <Image source={{ uri: `https://image.tmdb.org/t/p/w500/${poster_path}` }} style={styles.image} />
               </View>
               <View style={[styles.movieInfo, this.getStyles().movieInfo]}>
                 <Text style={[styles.title, this.getStyles().title]}>{name}</Text>
                 {/* <Text style={styles.genre}>{genre}</Text> */}
               </View>
             </View>
-            <View>
+            <View style={styles.movieDetails}>
               <Text>Day</Text>
-              <Text>Add day options here</Text>
+              <Text>{ genre_ids.reduce(this.getGenreTag, []).join(', ') }</Text>
               <Text>Showtime</Text>
               <Text>Add show time options here</Text>
             </View>
-          </View>
-          <View style={styles.footer}>
-            <TouchableHighlight underlayColor='#9575CD'>
-              <Text>Book My Tickets</Text>
-            </TouchableHighlight>
+            <View style={styles.footer}>
+              <TouchableHighlight underlayColor='#9575CD' onPress={this.animateClose} >
+                <Text>Back</Text>
+              </TouchableHighlight>
+            </View>
           </View>
         </Animated.View>
       </View>
@@ -128,28 +145,26 @@ export default class MoviePopup extends Component<Props, State> {
   }
 }
 
+const mapStateToProps = ({ tvShows: { genres } }): ReduxMappedProps => {
+  return { genres }
+}
+
 const styles = StyleSheet.create({
   container: {
     ...StyleSheet.absoluteFillObject,
-    justifyContent: 'flex-end',
     backgroundColor: 'transparent'
   },
   modal: {
     backgroundColor: 'white'
   },
   content: {
-    flex: 1,
     margin: 20,
     marginBottom: 0
   },
   movieContainer: {
-    flex: 1,
     marginBottom: 20
   },
   imageContainer: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center'
   },
   image: {
     borderRadius: 10,
@@ -157,8 +172,8 @@ const styles = StyleSheet.create({
     height: ((width / 2) * 1.48) - 20,
     marginRight: 10
   },
+  movieDetails: {},
   movieInfo: {
-    flex: 1,
     backgroundColor: 'transparent'
   },
   title: {
@@ -175,7 +190,7 @@ const styles = StyleSheet.create({
     color: '#AAAAAA'
   },
   footer: {
-    padding: 20
+    paddingTop: 20
   },
   buttonContainer: {
     backgroundColor: '#673AB7',
@@ -190,3 +205,5 @@ const styles = StyleSheet.create({
     fontSize: 18
   }
 })
+
+export default connect(mapStateToProps)(MoviePopup)

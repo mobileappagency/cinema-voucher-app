@@ -2,7 +2,15 @@
   "presets": ["babel-preset-expo", "react-native-dotenv"],
   "env": {
     "development": {
-      "plugins": ["transform-react-jsx-source"]
+      "plugins": ["transform-react-jsx-source",
+        ["module-resolver",{
+            "root": ["./src"],
+            "alias": {
+              "types": "./types/index.js"
+            }
+          }
+        ]
+      ]
     }
   }
 }

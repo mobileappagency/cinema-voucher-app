@@ -2,13 +2,14 @@
 import React from 'react'
 import MoviePoster from './'
 import { shallow } from 'enzyme'
-import type { TvShowsResult } from '../../services/theMovieDB'
+import type { TvShowsResult } from 'types'
 
 describe('MoviePoster', () => {
   let movie: TvShowsResult
 
   beforeEach(() => {
     movie = {
+      genre_ids: [],
       name: 'Blade Runner',
       poster_path: 'blade-runner.jpg',
       vote_average: 4.5,

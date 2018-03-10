@@ -4,7 +4,7 @@ import { StyleSheet, View } from 'react-native'
 import { Provider } from 'react-redux'
 import { StackNavigator } from 'react-navigation'
 
-import type { ReduxStore } from './store/configureStore'
+import type { ReduxStore } from './types'
 
 import Movies from './components/Movies'
 import configureStore from './store/configureStore'

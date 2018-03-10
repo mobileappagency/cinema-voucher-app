@@ -6,9 +6,7 @@ import {
   StyleSheet,
   View
 } from 'react-native'
-import type { ReduxState } from '../../reducers/initialState'
-import type { MovieModel } from '../../data/movies'
-import type { TvShowsResults, TvShowsResult } from '../../services/theMovieDB'
+import type { ReduxState, TvShowsResults, TvShowsResult } from 'types'
 import { fetchAllTvShows } from '../../actions'
 import MoviePoster from '../MoviePoster'
 import MoviePopup from '../MoviePopup'
@@ -19,7 +17,6 @@ type State = {
 }
 
 type Props = {
-  movies: MovieModel[],
   fetchAllTvShows: Function,
   tvShows: TvShowsResults
 }
@@ -49,6 +46,8 @@ class Movies extends Component<Props, State> {
 
   render () {
     const { tvShows } = this.props
+
+    console.log(this.state.popupIsOpen, this.state.movie)
 
     return (
       <View style={styles.container}>

@@ -1,28 +1,7 @@
 // @flow
 import { TMDB_API_KEY, TMDB_API_ENDPOINT } from 'react-native-dotenv'
 import * as fetchService from './fetch'
-
-type TvShowsResult = {
-  name: string,
-  poster_path: string,
-  original_language: string,
-  overview: string,
-  vote_average: number,
-  vote_count: number
-}
-
-type TvGenreResult = {
-  id: number,
-  name: string
-}
-
-type TvShowsResults = {
-  results: Array<TvShowsResult>,
-}
-
-type TvShowsGenreResults = {
-  genres: Array<TvGenreResult>
-}
+import type { GenreType, TvShowsGenreResults, TvGenreResult, TvShowsResults } from 'types'
 
 export const fetchMostPopular = async (): Promise<TvShowsResults> => {
   const popularTvShows: TvShowsResults = await fetchService.getRequest(
@@ -32,12 +11,22 @@ export const fetchMostPopular = async (): Promise<TvShowsResults> => {
   return popularTvShows
 }
 
-export const fetchAllGenres = async (): Promise<TvShowsGenreResults> => {
-  const allTvShowGenres: TvShowsGenreResults = await fetchService.getRequest(
-    `${TMDB_API_ENDPOINT}genre/tv/list?api_key=${TMDB_API_KEY}&language=en-US`
+export const fetchGenres = async (type: GenreType): Promise<Array<TvGenreResult>> => {
+  const { genres }: TvShowsGenreResults = await fetchService.getRequest(
+    `${TMDB_API_ENDPOINT}genre/${type}/list?api_key=${TMDB_API_KEY}&language=en-US`
   )
 
-  return allTvShowGenres
+  return genres
 }
 
-export type { TvShowsResult, TvShowsGenreResults, TvShowsResults }
+export const fetchAllGenres = async (): Promise<TvShowsGenreResults> => {
+  const tvShowGenres: Array<TvGenreResult> = await fetchGenres('tv')
+  const movieGenres: Array<TvGenreResult> = await fetchGenres('movie')
+
+  return {
+    genres: [
+      ...tvShowGenres,
+      ...movieGenres
+    ]
+  }
+}
