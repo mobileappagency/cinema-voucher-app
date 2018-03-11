@@ -4,7 +4,7 @@ import type { AllEffect, ForkEffect, Effect } from 'redux-saga'
 import * as actionTypes from '../actions/actionTypes'
 import type { TvShowsResults, TvShowsGenreResults } from 'types'
 
-import * as theMovieDBService from '../services/theMovieDB'
+import * as theMovieDBService from '../services/tmdb'
 
 export function * fetchAllTvShows (): Generator<Effect, void, any> {
   try {

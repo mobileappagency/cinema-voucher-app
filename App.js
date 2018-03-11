@@ -4,17 +4,17 @@ import { StyleSheet, View } from 'react-native'
 import { Provider } from 'react-redux'
 import { StackNavigator } from 'react-navigation'
 
-import type { ReduxStore } from './types'
-
 import Movies from './components/Movies'
 import configureStore from './store/configureStore'
 import rootSaga from './sagas'
 
-type State = {}
+type State = {
+  appReady: boolean
+}
 
 type Props = {}
 
-const store: ReduxStore = configureStore()
+const store = configureStore()
 store.runSaga(rootSaga)
 
 class App extends React.Component<Props, State> {

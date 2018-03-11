@@ -11,11 +11,6 @@ import { fetchAllTvShows, openPopup, closePopup } from '../../actions'
 import MoviePoster from '../MoviePoster'
 import MoviePopup from '../MoviePopup'
 
-type State = {
-  popupIsOpen: boolean,
-  movie: ?TvShowsResult
-}
-
 type ReduxMappedProps = {
   tvShows: TvShowsResults,
   popup: PopupStore
@@ -27,7 +22,7 @@ type Props = {
   closePopup: Function
 } & ReduxMappedProps
 
-class Movies extends Component<Props, State> {
+class Movies extends Component<Props> {
   componentWillMount () {
     this.props.fetchAllTvShows()
   }

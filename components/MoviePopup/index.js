@@ -8,7 +8,7 @@ import {
   View,
   StyleSheet,
   Text,
-  TouchableHighlight
+  TouchableOpacity
 } from 'react-native'
 import type { TvShowsResult, TvGenreResult } from 'types'
 import { defaultStyles } from '../../styles'
@@ -105,6 +105,11 @@ class MoviePopup extends Component<Props, State> {
         height: this.state.height,
         transform: [{ translateY: this.state.position }, { translateX: 0 }]
       }]}>
+        <TouchableOpacity onPress={this.animateClose} >
+          <View style={styles.backButton}>
+            <Text>Back</Text>
+          </View>
+        </TouchableOpacity>
         <View style={styles.content}>
           <View style={[styles.movieContainer, this.getStyles().movieContainer]}>
             <View style={[styles.imageContainer, this.getStyles().imageContainer]}>
@@ -120,11 +125,6 @@ class MoviePopup extends Component<Props, State> {
             <Text>{ genreIds.reduce(this.getGenreTag, []).join(', ') }</Text>
             <Text>Showtime</Text>
             <Text>Add show time options here</Text>
-          </View>
-          <View style={styles.footer}>
-            <TouchableHighlight onPress={this.animateClose} >
-              <Text>Back</Text>
-            </TouchableHighlight>
           </View>
         </View>
       </Animated.View>
@@ -173,8 +173,9 @@ const styles = StyleSheet.create({
     ...defaultStyles.text,
     color: '#AAAAAA'
   },
-  footer: {
-    paddingTop: 20
+  backButton: {
+    padding: 20,
+    backgroundColor: '#f7f7f7'
   },
   buttonContainer: {
     backgroundColor: '#673AB7',

@@ -4,7 +4,7 @@ import { all, call, fork, put } from 'redux-saga/effects'
 import type { AllEffect } from 'redux-saga'
 import rootSagas, { fetchAllTvGenres, fetchAllTvShows, watchTvShows } from './'
 
-import * as theMovieDBService from '../services/theMovieDB'
+import * as theMovieDBService from '../services/tmdb'
 
 describe('sagas', () => {
   it('exports a proper rootSagas object', () => {
