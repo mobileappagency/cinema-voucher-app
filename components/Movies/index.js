@@ -6,8 +6,8 @@ import {
   StyleSheet,
   View
 } from 'react-native'
-import type { ReduxState, TvShowsResults, TvShowsResult } from 'types'
-import { fetchAllTvShows } from '../../actions'
+import type { PopupStore, TvShowsResults, TvShowsResult } from 'types'
+import { fetchAllTvShows, openPopup, closePopup } from '../../actions'
 import MoviePoster from '../MoviePoster'
 import MoviePopup from '../MoviePopup'
 
@@ -16,57 +16,51 @@ type State = {
   movie: ?TvShowsResult
 }
 
-type Props = {
-  fetchAllTvShows: Function,
-  tvShows: TvShowsResults
+type ReduxMappedProps = {
+  tvShows: TvShowsResults,
+  popup: PopupStore
 }
 
-class Movies extends Component<Props, State> {
-  state = {
-    popupIsOpen: false,
-    movie: null
-  }
+type Props = {
+  fetchAllTvShows: Function,
+  openPopup: Function,
+  closePopup: Function
+} & ReduxMappedProps
 
+class Movies extends Component<Props, State> {
   componentWillMount () {
     this.props.fetchAllTvShows()
   }
 
-  openMovie = (movie: TvShowsResult) => {
-    this.setState({
-      popupIsOpen: true,
-      movie
-    })
+  openTvShow = (tvShow: TvShowsResult) => {
+    this.props.openPopup(tvShow)
   }
 
-  closeMovie = () => {
-    this.setState({
-      popupIsOpen: false
-    })
+  closeTvShow = () => {
+    this.props.closePopup()
   }
 
   render () {
-    const { tvShows } = this.props
-
-    console.log(this.state.popupIsOpen, this.state.movie)
+    const { tvShows, popup } = this.props
 
     return (
       <View style={styles.container}>
         <ScrollView contentContainerStyle={styles.scrollContent}>
           {tvShows.results.map((movie, index) =>
-            <MoviePoster movie={movie} key={index} onOpen={() => this.openMovie(movie)} />)}
+            <MoviePoster movie={movie} key={index} onOpen={() => this.openTvShow(movie)} />)}
         </ScrollView>
         <MoviePopup
-          movie={this.state.movie}
-          isOpen={this.state.popupIsOpen}
-          onClose={this.closeMovie}
+          movie={popup.tvShow}
+          isOpen={popup.isOpen}
+          onClose={this.closeTvShow}
           />
       </View>
     )
   }
 }
 
-const mapStateToProps = ({ tvShows }): ReduxState => {
-  return { tvShows }
+const mapStateToProps = ({ tvShows, popup }): ReduxMappedProps => {
+  return { tvShows, popup }
 }
 
 const styles = StyleSheet.create({
@@ -79,4 +73,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default connect(mapStateToProps, { fetchAllTvShows })(Movies)
+export default connect(mapStateToProps, { fetchAllTvShows, openPopup, closePopup })(Movies)

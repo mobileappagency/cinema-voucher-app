@@ -8,9 +8,9 @@ import {
   StyleSheet,
   View
 } from 'react-native'
+import FastImage from 'react-native-fast-image'
 import type { TvShowsResult } from 'types'
 import { defaultStyles } from '../../styles'
-
 type Props = {
   movie: TvShowsResult,
   onOpen: (movie: TvShowsResult) => void
@@ -35,7 +35,7 @@ export default class MoviePoster extends Component<Props> {
     return (
       <TouchableOpacity style={[styles.container, this.getStyles().container]} onPress={() => onOpen(movie)}>
         <View style={styles.imageContainer}>
-          <Image source={{ uri: `https://image.tmdb.org/t/p/w500/${poster_path}` }} style={styles.image} />
+          <FastImage source={{ uri: `https://image.tmdb.org/t/p/w500/${poster_path}` }} style={styles.image} />
         </View>
         <Text style={styles.title} numberOfLines={1}>{name}</Text>
         <Text style={styles.genre} numberOfLines={1}>{vote_average}</Text>

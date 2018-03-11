@@ -26,18 +26,16 @@ type Props = {
 type State = {
   position: Animated.Value,
   height: number,
-  expanded: boolean,
-  visible: boolean
+  expanded: boolean
 }
 
 const { width, height } = Dimensions.get('window')
 
 class MoviePopup extends Component<Props, State> {
   state = {
-    position: new Animated.Value(this.props.isOpen ? 0 : height),
+    position: new Animated.Value(height),
     height,
-    expanded: false,
-    visible: this.props.isOpen
+    expanded: false
   }
 
   componentWillReceiveProps (nextProps: Props) {
@@ -49,24 +47,16 @@ class MoviePopup extends Component<Props, State> {
   }
 
   animateOpen = () => {
-    this.setState({ visible: true }, () => {
-      Animated.timing(
-        this.state.position, { toValue: 0 }
-      ).start()
-    })
+    Animated.timing(
+      this.state.position, { toValue: 0 }
+    ).start()
   }
 
   animateClose = () => {
     Animated.timing(
       this.state.position, { toValue: height }
-    ).start(() => {
-      this.setState({
-        height,
-        expanded: false,
-        visible: false
-      })
-      this.props.onClose()
-    })
+    ).start()
+    this.props.onClose()
   }
 
   getGenreTag = (acc: Array<string>, genreId: number): Array<string> => {
@@ -109,38 +99,35 @@ class MoviePopup extends Component<Props, State> {
     const { movie } = this.props
     const { genre_ids, name, poster_path } = movie || {}
 
-    if (!this.state.visible) return null
-
+    const genreIds: number[] = genre_ids || []
     return (
-      <View style={styles.container}>
-        <Animated.View style={[styles.modal, {
-          height: this.state.height,
-          transform: [{ translateY: this.state.position }, { translateX: 0 }]
-        }]}>
-          <View style={styles.content}>
-            <View style={[styles.movieContainer, this.getStyles().movieContainer]}>
-              <View style={[styles.imageContainer, this.getStyles().imageContainer]}>
-                <Image source={{ uri: `https://image.tmdb.org/t/p/w500/${poster_path}` }} style={styles.image} />
-              </View>
-              <View style={[styles.movieInfo, this.getStyles().movieInfo]}>
-                <Text style={[styles.title, this.getStyles().title]}>{name}</Text>
-                {/* <Text style={styles.genre}>{genre}</Text> */}
-              </View>
+      <Animated.View style={[styles.modal, {
+        height: this.state.height,
+        transform: [{ translateY: this.state.position }, { translateX: 0 }]
+      }]}>
+        <View style={styles.content}>
+          <View style={[styles.movieContainer, this.getStyles().movieContainer]}>
+            <View style={[styles.imageContainer, this.getStyles().imageContainer]}>
+              <Image source={{ uri: `https://image.tmdb.org/t/p/w500/${poster_path}` }} style={styles.image} />
             </View>
-            <View style={styles.movieDetails}>
-              <Text>Day</Text>
-              <Text>{ genre_ids.reduce(this.getGenreTag, []).join(', ') }</Text>
-              <Text>Showtime</Text>
-              <Text>Add show time options here</Text>
-            </View>
-            <View style={styles.footer}>
-              <TouchableHighlight underlayColor='#9575CD' onPress={this.animateClose} >
-                <Text>Back</Text>
-              </TouchableHighlight>
+            <View style={[styles.movieInfo, this.getStyles().movieInfo]}>
+              <Text style={[styles.title, this.getStyles().title]}>{name}</Text>
+              {/* <Text style={styles.genre}>{genre}</Text> */}
             </View>
           </View>
-        </Animated.View>
-      </View>
+          <View style={styles.movieDetails}>
+            <Text>Day</Text>
+            <Text>{ genreIds.reduce(this.getGenreTag, []).join(', ') }</Text>
+            <Text>Showtime</Text>
+            <Text>Add show time options here</Text>
+          </View>
+          <View style={styles.footer}>
+            <TouchableHighlight onPress={this.animateClose} >
+              <Text>Back</Text>
+            </TouchableHighlight>
+          </View>
+        </View>
+      </Animated.View>
     )
   }
 }
@@ -150,11 +137,8 @@ const mapStateToProps = ({ tvShows: { genres } }): ReduxMappedProps => {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    ...StyleSheet.absoluteFillObject,
-    backgroundColor: 'transparent'
-  },
   modal: {
+    ...StyleSheet.absoluteFillObject,
     backgroundColor: 'white'
   },
   content: {
