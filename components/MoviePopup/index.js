@@ -1,6 +1,7 @@
 // @flow
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { FontAwesome } from '@expo/vector-icons'
 import {
   Animated,
   Dimensions,
@@ -107,6 +108,7 @@ class MoviePopup extends Component<Props, State> {
       }]}>
         <TouchableOpacity onPress={this.animateClose} >
           <View style={styles.backButton}>
+            <FontAwesome name='chevron-left' size={32} color='gray' />
             <Text>Back</Text>
           </View>
         </TouchableOpacity>
@@ -175,7 +177,10 @@ const styles = StyleSheet.create({
   },
   backButton: {
     padding: 20,
-    backgroundColor: '#f7f7f7'
+    backgroundColor: '#f7f7f7',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between'
   },
   buttonContainer: {
     backgroundColor: '#673AB7',

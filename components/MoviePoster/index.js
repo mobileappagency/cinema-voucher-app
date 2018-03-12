@@ -23,7 +23,6 @@ export default class MoviePoster extends Component<Props> {
     const containerWidth = width / cols
     return {
       container: {
-        height: containerWidth * 1.5 - 10,
         width: containerWidth - 10
       }
     }
@@ -33,11 +32,13 @@ export default class MoviePoster extends Component<Props> {
     const { movie, movie: { name, poster_path, vote_average }, onOpen } = this.props
     return (
       <TouchableOpacity style={[styles.container, this.getStyles().container]} onPress={() => onOpen(movie)}>
-        <View style={styles.imageContainer}>
+        <View>
           <Image source={{ uri: `https://image.tmdb.org/t/p/w500/${poster_path}` }} style={styles.image} />
         </View>
-        <Text style={styles.title} numberOfLines={1}>{name}</Text>
-        <Text style={styles.genre} numberOfLines={1}>{vote_average}</Text>
+        <View>
+          <Text style={styles.title} numberOfLines={1}>{name}</Text>
+          <Text style={styles.voteAverage} numberOfLines={1}>User Rating: {vote_average}</Text>
+        </View>
       </TouchableOpacity>
     )
   }
@@ -48,19 +49,17 @@ const styles = StyleSheet.create({
     marginLeft: 7.5,
     marginBottom: 5
   },
-  imageContainer: {
-    flex: 1
-  },
   image: {
     borderRadius: 5,
-    ...StyleSheet.absoluteFillObject
+    width: (width / cols) - 10,
+    height: ((width / cols) * 1.48) - 10
   },
   title: {
     ...defaultStyles.text,
     fontSize: 14,
     marginTop: 4
   },
-  genre: {
+  voteAverage: {
     ...defaultStyles.text,
     color: '#BBBBBB',
     fontSize: 12,
