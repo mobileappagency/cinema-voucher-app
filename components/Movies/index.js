@@ -40,6 +40,7 @@ class Movies extends Component<Props> {
 
     return (
       <View style={styles.container}>
+        <View style={styles.navbar} />
         <ScrollView contentContainerStyle={styles.scrollContent}>
           {tvShows.results.map((movie, index) =>
             <MoviePoster movie={movie} key={index} onOpen={() => this.openTvShow(movie)} />)}
@@ -60,9 +61,13 @@ const mapStateToProps = ({ tvShows, popup }): ReduxMappedProps => {
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 20
+  },
+  navbar: {
+    backgroundColor: '#f7f7f7',
+    height: 50
   },
   scrollContent: {
+    marginTop: 15,
     flexDirection: 'row',
     flexWrap: 'wrap'
   }
