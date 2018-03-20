@@ -3,6 +3,7 @@ import {
   POPUP_CLOSE,
   POPUP_OPEN,
   TV_SHOWS_FETCH_ALL,
+  TV_SHOWS_FETCH_DETAIL,
   TV_SHOWS_FETCH_FAILURE,
   TV_SHOWS_RESULTS,
   TV_SHOWS_FETCH_GENRES
@@ -25,6 +26,11 @@ export type TvGenreResult = {
   name: string
 }
 
+export type TvShowsParams = {
+  title: string,
+  year: ?number
+}
+
 export type TvShowsResults = {
   results: Array<TvShowsResult>,
 }
@@ -33,8 +39,23 @@ export type TvShowsGenreResults = {
   genres: Array<TvGenreResult>
 }
 
+export type TvShowsRating = {
+  Source: string,
+  Value: string
+}
+
+export type TvShowsDetailResult = {
+  Genre: string,
+  Title: string,
+  Year: number,
+  Director: string,
+  Writer: string,
+  Ratings: Array<TvShowsRating>
+}
+
 export type TvShowActionType = 
   TV_SHOWS_FETCH_ALL | 
+  TV_SHOWS_FETCH_DETAIL |
   TV_SHOWS_FETCH_FAILURE | 
   TV_SHOWS_RESULTS | 
   TV_SHOWS_FETCH_GENRES
@@ -66,4 +87,9 @@ export type ReduxState = {
 export type TvShowsAction = {
   type: TvShowActionType,
   payload: TvShowsResults | TvShowsGenreResults
+}
+
+export type TvShowsDetailAction = {
+  type: TvShowActionType,
+  payload: TvShowsParams
 }

@@ -10,6 +10,7 @@ import {
 } from 'react-native'
 import type { TvShowsResult } from 'types'
 import { defaultStyles } from '../../styles'
+
 type Props = {
   movie: TvShowsResult,
   onOpen: (movie: TvShowsResult) => void
@@ -66,3 +67,4 @@ const styles = StyleSheet.create({
     lineHeight: 14
   }
 })
+

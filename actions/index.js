@@ -2,6 +2,13 @@
 import * as actionTypes from './actionTypes'
 import type { TvShowsResult } from 'types'
 
+export const fetchTvShowDetail = (title: string, year: ?number) => {
+  return {
+    type: actionTypes.TV_SHOWS_FETCH_DETAIL,
+    payload: { title, year }
+  }
+}
+
 export const fetchAllTvShows = () => {
   return {
     type: actionTypes.TV_SHOWS_FETCH_ALL

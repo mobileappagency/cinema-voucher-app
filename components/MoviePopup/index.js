@@ -13,15 +13,17 @@ import {
 } from 'react-native'
 import type { TvShowsResult, TvGenreResult } from 'types'
 import { defaultStyles } from '../../styles'
+import { closePopup, fetchTvShowDetail } from '../../actions'
 
 type ReduxMappedProps = {
-  genres: Array<TvGenreResult>
+  genres: Array<TvGenreResult>,
+  tvShow: ?TvShowsResult,
+  isOpen: boolean
 }
 
 type Props = {
-  movie: ?TvShowsResult,
-  isOpen: boolean,
-  onClose: Function
+  fetchTvShowDetail: (tvShow: string, year: ?number) => void,
+  closePopup: Function
 } & ReduxMappedProps
 
 type State = {
@@ -39,11 +41,22 @@ class MoviePopup extends Component<Props, State> {
     expanded: false
   }
 
+  componentDidMount () {
+    const { tvShow } = this.props
+    if (!tvShow) return
+    this.props.fetchTvShowDetail(tvShow.name)
+  }
+
   componentWillReceiveProps (nextProps: Props) {
     if (!this.props.isOpen && nextProps.isOpen) {
       this.animateOpen()
     } else if (this.props.isOpen && !nextProps.isOpen) {
       this.animateClose()
+    }
+
+    if (nextProps.tvShow) {
+      const { tvShow: { name } } = nextProps
+      this.props.fetchTvShowDetail(name)
     }
   }
 
@@ -57,7 +70,7 @@ class MoviePopup extends Component<Props, State> {
     Animated.timing(
       this.state.position, { toValue: height }
     ).start()
-    this.props.onClose()
+    this.props.closePopup()
   }
 
   getGenreTag = (acc: Array<string>, genreId: number): Array<string> => {
@@ -97,8 +110,8 @@ class MoviePopup extends Component<Props, State> {
   })
 
   render () {
-    const { movie } = this.props
-    const { genre_ids, name, poster_path } = movie || {}
+    const { tvShow } = this.props
+    const { genre_ids, name, poster_path } = tvShow || {}
 
     const genreIds: number[] = genre_ids || []
     return (
@@ -134,8 +147,8 @@ class MoviePopup extends Component<Props, State> {
   }
 }
 
-const mapStateToProps = ({ tvShows: { genres } }): ReduxMappedProps => {
-  return { genres }
+const mapStateToProps = ({ tvShows: { genres }, popup: { tvShow, isOpen } }): ReduxMappedProps => {
+  return { genres, tvShow, isOpen }
 }
 
 const styles = StyleSheet.create({
@@ -196,4 +209,7 @@ const styles = StyleSheet.create({
   }
 })
 
-export default connect(mapStateToProps)(MoviePopup)
+export default connect(mapStateToProps, {
+  closePopup,
+  fetchTvShowDetail
+})(MoviePopup)
